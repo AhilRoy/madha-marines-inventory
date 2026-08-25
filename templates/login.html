@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Madha Marines Login</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <img
+                src="{{ url_for('static', filename='images/logo.png') }}"
+                alt="Logo">
+
+            <h1>Madha Marines</h1>
+
+            <p>Inventory Management System</p>
+
+            <form id="loginForm">
+
+                <!-- Username -->
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Username"
+                        autocomplete="username"
+                        required>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        autocomplete="current-password"
+                        required>
+
+                    <button
+                        type="button"
+                        id="togglePassword"
+                        class="toggle-password">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+                </div>
+
+                <!-- Remember -->
+
+                <div class="remember-row">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe">
+
+                        Remember Me
+
+                    </label>
+
+                </div>
+
+                <!-- Message -->
+
+                <p id="errorMessage"></p>
+
+                <!-- Login -->
+
+                <button
+                    type="submit"
+                    id="loginButton">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script
+        src="{{ url_for('static', filename='js/login.js') }}">
+    </script>
+
+</body>
+
+</html>

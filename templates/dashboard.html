@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Madha Marines Inventory System</title>
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+
+            <ul class="menu">
+
+                <!-- Dashboard -->
+
+                <li class="active">
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- Products -->
+
+                <li>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+
+                <!-- Stock In -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+
+                <!-- Stock Out -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+
+                <!-- Suppliers -->
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+
+                <!-- Customers -->
+
+                <li>
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+
+                <!-- Inventory -->
+
+                <li>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+
+                <!-- Reports -->
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+
+                <!-- Settings -->
+
+                <li>
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+
+                <!-- Logout -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+
+            <!-- ===========================
+                 HEADER
+            ============================ -->
+
+            <div class="header">
+
+                <div class="header-left">
+
+                    <h1>Dashboard</h1>
+
+                    <p>Welcome back, Admin</p>
+
+                    <span id="date"></span>
+
+                </div>
+
+
+                <div class="header-right">
+
+                    <div class="search-box">
+
+                        <input
+                            type="text"
+                            id="dashboardSearch"
+                            placeholder="Search products...">
+
+                        <button
+                            type="button"
+                            id="dashboardSearchButton"
+                            aria-label="Search products">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="profile">
+
+                        <i class="fa-solid fa-user-circle fa-2x"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ===========================
+                 DASHBOARD SUMMARY CARDS
+            ============================ -->
+
+            <div class="cards">
+
+
+                <!-- Total Products -->
+
+                <a
+                    href="{{ url_for('products_page') }}"
+                    class="card">
+
+                    <i class="fa-solid fa-box fa-2x"></i>
+
+                    <h3>Total Products</h3>
+
+                    <h2 id="totalProducts">
+                        0
+                    </h2>
+
+                </a>
+
+
+                <!-- Products Available -->
+
+                <a
+                    href="{{ url_for('inventory_page') }}"
+                    class="card">
+
+                    <i class="fa-solid fa-warehouse fa-2x"></i>
+
+                    <h3>Products Available</h3>
+
+                    <h2 id="availableStock">
+                        0
+                    </h2>
+
+                </a>
+
+
+                <!-- Today's Sales -->
+
+                <a
+                    href="{{ url_for('stock_out_page') }}"
+                    class="card">
+
+                    <i class="fa-solid fa-indian-rupee-sign fa-2x"></i>
+
+                    <h3>Today's Sales</h3>
+
+                    <h2 id="todaySales">
+                        ₹0.00
+                    </h2>
+
+                </a>
+
+
+                <!-- Low Stock -->
+
+                <a
+                    href="#lowStockSection"
+                    class="card low-stock">
+
+                    <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+
+                    <h3>Low Stock Products</h3>
+
+                    <h2 id="lowStockCount">
+                        0
+                    </h2>
+
+                </a>
+
+
+                <!-- This Month's Sales -->
+
+                <a
+                    href="{{ url_for('reports_page') }}"
+                    class="card">
+
+                    <i class="fa-solid fa-calendar-days fa-2x"></i>
+
+                    <h3>This Month's Sales</h3>
+
+                    <h2 id="monthlySales">
+                        ₹0.00
+                    </h2>
+
+                </a>
+
+            </div>
+
+
+            <!-- ===========================
+                 QUICK ACTIONS
+            ============================ -->
+
+            <div class="quick-actions">
+
+
+                <!-- Add Product -->
+
+                <a
+                    href="{{ url_for('products_page') }}"
+                    class="quick-action-link">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Product
+
+                    </button>
+
+                </a>
+
+
+                <!-- Stock In -->
+
+                <a
+                    href="{{ url_for('stock_in_page') }}"
+                    class="quick-action-link">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </button>
+
+                </a>
+
+
+                <!-- Stock Out -->
+
+                <a
+                    href="{{ url_for('stock_out_page') }}"
+                    class="quick-action-link">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </button>
+
+                </a>
+
+
+                <!-- Inventory -->
+
+                <a
+                    href="{{ url_for('inventory_page') }}"
+                    class="quick-action-link">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </button>
+
+                </a>
+
+
+                <!-- Reports -->
+
+                <a
+                    href="{{ url_for('reports_page') }}"
+                    class="quick-action-link">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                        Reports
+
+                    </button>
+
+                </a>
+
+            </div>
+
+
+            <!-- ===========================
+                 SALES ANALYTICS
+            ============================ -->
+
+            <section class="table-section dashboard-chart-section">
+
+                <div class="stock-history-header">
+
+                    <div>
+
+                        <h2>Sales Overview</h2>
+
+                        <p>
+                            Sales performance for the last 7 days
+                        </p>
+
+                    </div>
+
+                    <a href="{{ url_for('reports_page') }}">
+                        View Reports
+                    </a>
+
+                </div>
+
+                <div class="dashboard-chart-container">
+
+                    <canvas id="salesChart"></canvas>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 RECENT PRODUCTS
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="stock-history-header">
+
+                    <h2>Recent Products</h2>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        View All Products
+
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+
+                                <th>Category</th>
+
+                                <th>Available Stock</th>
+
+                                <th>Price Per Unit</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentProductsTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="4"
+                                    class="empty-table-message">
+
+                                    Loading products...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 RECENT STOCK IN
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="stock-history-header">
+
+                    <h2>Recent Stock In</h2>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        View Stock In
+
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Date</th>
+
+                                <th>Product</th>
+
+                                <th>Quantity Added</th>
+
+                                <th>Previous Stock</th>
+
+                                <th>New Stock</th>
+
+                                <th>Supplier</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentStockInTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty-table-message">
+
+                                    Loading stock-in history...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 RECENT SALES
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="stock-history-header">
+
+                    <h2>Recent Sales</h2>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        View All Sales
+
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Date</th>
+
+                                <th>Product</th>
+
+                                <th>Quantity Sold</th>
+
+                                <th>Price Per Unit</th>
+
+                                <th>Total</th>
+
+                                <th>Customer</th>
+
+                                <th>Payment</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentSalesTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="empty-table-message">
+
+                                    Loading sales...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 LOW STOCK ALERTS
+            ============================ -->
+
+            <section
+                class="table-section"
+                id="lowStockSection">
+
+                <div class="stock-history-header">
+
+                    <h2>Low Stock Alerts</h2>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        View Inventory
+
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+
+                                <th>Category</th>
+
+                                <th>Available Stock</th>
+
+                                <th>Price Per Unit</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="lowStockTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="empty-table-message">
+
+                                    Loading stock information...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 FOOTER
+            ============================ -->
+
+            <footer>
+
+                <p>
+                    © 2026 Madha Marines Inventory System
+                </p>
+
+                <p>
+                    Developed by Ahil Roy
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- ===========================
+         JAVASCRIPT
+    ============================ -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script
+        src="{{ url_for('static', filename='js/dashboard.js') }}">
+    </script>
+
+    <script
+        src="{{ url_for('static', filename='js/mobile-sidebar.js') }}">
+    </script>
+
+</body>
+
+</html>

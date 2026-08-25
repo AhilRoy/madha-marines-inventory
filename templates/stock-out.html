@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Stock Out - Madha Marines</title>
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+            <ul class="menu">
+
+                <!-- Dashboard -->
+
+                <li>
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <!-- Products -->
+
+                <li>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <!-- Stock In -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+                <!-- Stock Out -->
+
+                <li class="active">
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+                <!-- Suppliers -->
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+                <!-- Customers -->
+
+                <li>
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+                <!-- Inventory -->
+
+                <li>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <!-- Reports -->
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+                <!-- Settings -->
+
+                <li>
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <!-- Logout -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+            <!-- Header -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Stock Out</h1>
+
+                    <p>
+                        Record product sales and outgoing stock
+                    </p>
+
+                </div>
+
+            </header>
+
+            <!-- ===========================
+                 SUMMARY CARDS
+            ============================ -->
+
+            <section class="stock-summary">
+
+                <div class="stock-summary-card">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    <h3>Total Products</h3>
+
+                    <h2 id="stockOutTotalProducts">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="stock-summary-card">
+
+                    <i class="fa-solid fa-warehouse"></i>
+
+                    <h3>Products Available</h3>
+
+                    <h2 id="availableStockQuantity">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="stock-summary-card">
+
+                    <i class="fa-solid fa-arrow-up"></i>
+
+                    <h3>Sales Entries</h3>
+
+                    <h2 id="totalStockSold">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="stock-summary-card">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                    <h3>Total Sales</h3>
+
+                    <h2 id="totalSalesAmount">
+                        ₹0.00
+                    </h2>
+
+                </div>
+
+            </section>
+
+            <!-- ===========================
+                 STOCK OUT FORM
+            ============================ -->
+
+            <section class="stock-form-section">
+
+                <h2>Record Stock Out</h2>
+
+                <form id="stockOutForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="stockOutProduct">
+
+                                Select Product
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <select
+                                id="stockOutProduct"
+                                required>
+
+                                <option value="">
+                                    Select a product
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="stockOutQuantity">
+
+                                Quantity Sold
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="number"
+                                id="stockOutQuantity"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Enter quantity sold"
+                                required>
+
+                            <small id="stockOutQuantityUnit">
+
+                                Select a product to view its unit
+
+                            </small>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="sellingPrice">
+
+                                Selling Price Per Unit
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="number"
+                                id="sellingPrice"
+                                min="0"
+                                step="0.01"
+                                placeholder="Enter selling price"
+                                required>
+
+                            <small id="sellingPriceUnit">
+
+                                Price for one selected unit
+
+                            </small>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="totalAmount">
+
+                                Total Amount
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="totalAmount"
+                                value="₹0.00"
+                                readonly>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="customerSelect">
+
+                                Select Customer
+
+                            </label>
+
+                            <select id="customerSelect">
+
+                                <option value="">
+                                    Walk-in Customer
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="customerName">
+
+                                Customer Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customerName"
+                                placeholder="Enter customer name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="customerPhone">
+
+                                Customer Phone
+
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="customerPhone"
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                placeholder="Enter 10-digit phone number">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="stockOutInvoice">
+
+                                Invoice Number
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="stockOutInvoice"
+                                placeholder="Generated automatically"
+                                readonly>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="stockOutDate">
+
+                                Sale Date
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="date"
+                                id="stockOutDate"
+                                required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="paymentMethod">
+
+                                Payment Method
+
+                            </label>
+
+                            <select id="paymentMethod">
+
+                                <option value="Cash">
+                                    Cash
+                                </option>
+
+                                <option value="UPI">
+                                    UPI
+                                </option>
+
+                                <option value="Card">
+                                    Card
+                                </option>
+
+                                <option value="Credit">
+                                    Credit
+                                </option>
+
+                                <option value="Bank Transfer">
+                                    Bank Transfer
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="stockOutNotes">
+
+                                Notes
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="stockOutNotes"
+                                placeholder="Enter optional notes">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="product-stock-info"
+                        id="stockOutProductInfo">
+
+                        <h3>Selected Product Details</h3>
+
+                        <p>
+                            Product:
+                            <strong id="outSelectedProductName">
+                                -
+                            </strong>
+                        </p>
+
+                        <p>
+                            Category:
+                            <strong id="outSelectedCategory">
+                                -
+                            </strong>
+                        </p>
+
+                        <p>
+                            Unit:
+                            <strong id="outSelectedUnit">
+                                -
+                            </strong>
+                        </p>
+
+                        <p>
+                            Available Stock:
+                            <strong id="outAvailableStock">
+                                0
+                            </strong>
+                        </p>
+
+                        <p>
+                            Purchase Price Per Unit:
+                            <strong id="outPurchasePrice">
+                                ₹0.00
+                            </strong>
+                        </p>
+
+                        <p>
+                            Selling Price Per Unit:
+                            <strong id="outSellingPrice">
+                                ₹0.00
+                            </strong>
+                        </p>
+
+                        <p>
+                            Quantity Being Sold:
+                            <strong id="outQuantitySold">
+                                0
+                            </strong>
+                        </p>
+
+                        <p>
+                            Total Sale Amount:
+                            <strong id="outTotalSaleAmount">
+                                ₹0.00
+                            </strong>
+                        </p>
+
+                        <p>
+                            Stock After Sale:
+                            <strong id="stockAfterSale">
+                                0
+                            </strong>
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="stock-out-btn"
+                        id="stockOutButton">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Complete Sale
+
+                    </button>
+
+                    <p id="stockOutMessage"></p>
+
+                </form>
+
+            </section>
+
+            <!-- ===========================
+                 STOCK OUT HISTORY
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="stock-history-header">
+
+                    <h2>Stock Out History</h2>
+
+                    <input
+                        type="text"
+                        id="stockOutSearch"
+                        placeholder="Search sales...">
+
+                    <button
+                        type="button"
+                        class="clear-history-btn"
+                        id="clearStockOutHistory">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        Clear History
+
+                    </button>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price Per Unit</th>
+                                <th>Total</th>
+                                <th>Customer</th>
+                                <th>Payment</th>
+                                <th>Invoice</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="stockOutTableBody">
+
+                            <!-- Sales history appears here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <footer>
+
+                <p>
+                    © 2026 Madha Marines Inventory System
+                </p>
+
+                <p>
+                    Developed by Ahil Roy
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- Stock Out JavaScript -->
+
+    <script src="{{ url_for('static', filename='js/stock-out.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/mobile-sidebar.js') }}"></script>
+
+</body>
+
+</html>

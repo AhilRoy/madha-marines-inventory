@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Customers - Madha Marines</title>
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+            <ul class="menu">
+
+                <!-- Dashboard -->
+
+                <li>
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <!-- Products -->
+
+                <li>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <!-- Stock In -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+                <!-- Stock Out -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+                <!-- Suppliers -->
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+                <!-- Customers -->
+
+                <li class="active">
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+                <!-- Inventory -->
+
+                <li>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <!-- Reports -->
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+                <!-- Settings -->
+
+                <li>
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <!-- Logout -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+            <!-- Header -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Customer Management</h1>
+
+                    <p>Add and manage shop customers</p>
+
+                </div>
+
+            </header>
+
+            <!-- ===========================
+                 CUSTOMER SUMMARY
+            ============================ -->
+
+            <section class="cards">
+
+                <div class="card">
+
+                    <div>
+
+                        <h3>Total Customers</h3>
+
+                        <p id="totalCustomers">0</p>
+
+                    </div>
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div class="card">
+
+                    <div>
+
+                        <h3>Active Customers</h3>
+
+                        <p id="activeCustomers">0</p>
+
+                    </div>
+
+                    <i class="fa-solid fa-user-check"></i>
+
+                </div>
+
+                <div class="card">
+
+                    <div>
+
+                        <h3>Regular Customers</h3>
+
+                        <p id="regularCustomers">0</p>
+
+                    </div>
+
+                    <i class="fa-solid fa-star"></i>
+
+                </div>
+
+            </section>
+
+            <!-- ===========================
+                 CUSTOMER FORM
+            ============================ -->
+
+            <section class="product-form-section">
+
+                <h2>Add New Customer</h2>
+
+                <form id="customerForm">
+
+                    <div class="form-grid">
+
+                        <!-- Customer Name -->
+
+                        <div class="form-group">
+
+                            <label for="customerName">
+
+                                Customer Name
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customerName"
+                                placeholder="Enter customer name"
+                                required>
+
+                        </div>
+
+                        <!-- Phone Number -->
+
+                        <div class="form-group">
+
+                            <label for="customerPhone">
+
+                                Phone Number
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="customerPhone"
+                                placeholder="Enter phone number"
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                required>
+
+                        </div>
+
+                        <!-- Email -->
+
+                        <div class="form-group">
+
+                            <label for="customerEmail">
+
+                                Email
+
+                            </label>
+
+                            <input
+                                type="email"
+                                id="customerEmail"
+                                placeholder="Enter email address">
+
+                        </div>
+
+                        <!-- Customer Type -->
+
+                        <div class="form-group">
+
+                            <label for="customerType">
+
+                                Customer Type
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <select
+                                id="customerType"
+                                required>
+
+                                <option value="">
+                                    Select customer type
+                                </option>
+
+                                <option value="Regular">
+                                    Regular
+                                </option>
+
+                                <option value="Wholesale">
+                                    Wholesale
+                                </option>
+
+                                <option value="Retail">
+                                    Retail
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Status -->
+
+                        <div class="form-group">
+
+                            <label for="customerStatus">
+
+                                Status
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <select
+                                id="customerStatus"
+                                required>
+
+                                <option value="Active">
+                                    Active
+                                </option>
+
+                                <option value="Inactive">
+                                    Inactive
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Address -->
+
+                        <div class="form-group">
+
+                            <label for="customerAddress">
+
+                                Address
+
+                            </label>
+
+                            <textarea
+                                id="customerAddress"
+                                rows="3"
+                                placeholder="Enter customer address"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="add-product-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Customer
+
+                    </button>
+
+                    <p id="customerMessage"></p>
+
+                </form>
+
+            </section>
+
+            <!-- ===========================
+                 CUSTOMER LIST
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="table-header">
+
+                    <h2>Customer List</h2>
+
+                    <input
+                        type="text"
+                        id="customerSearch"
+                        placeholder="Search customers...">
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Name</th>
+
+                                <th>Phone</th>
+
+                                <th>Email</th>
+
+                                <th>Type</th>
+
+                                <th>Address</th>
+
+                                <th>Status</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="customerTableBody">
+
+                            <!-- Customers will appear here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- Footer -->
+
+            <footer>
+
+                <p>© 2026 Madha Marines Inventory System</p>
+
+                <p>Developed by Ahil Roy</p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- Customer JavaScript -->
+
+    <script src="{{ url_for('static', filename='js/customers.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/mobile-sidebar.js') }}"></script>
+
+</body>
+
+</html>

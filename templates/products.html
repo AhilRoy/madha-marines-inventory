@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Products - Madha Marines</title>
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+            <ul class="menu">
+
+                <!-- Dashboard -->
+
+                <li>
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <!-- Products -->
+
+                <li class="active">
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <!-- Stock In -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+                <!-- Stock Out -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+                <!-- Suppliers -->
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+                <!-- Customers -->
+
+                <li>
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+                <!-- Inventory -->
+
+                <li>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <!-- Reports -->
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+                <!-- Settings -->
+
+                <li>
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <!-- Logout -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+            <!-- Header -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Product Management</h1>
+
+                    <p>Add and manage shop products</p>
+
+                </div>
+
+            </header>
+
+            <!-- ===========================
+                 PRODUCT FORM
+            ============================ -->
+
+            <section class="product-form-section">
+
+                <h2>Add New Product</h2>
+
+                <form id="productForm">
+
+                    <div class="form-grid">
+
+                        <!-- Product Name -->
+
+                        <div class="form-group">
+
+                            <label for="productName">
+
+                                Product Name
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="productName"
+                                placeholder="Enter product name"
+                                required>
+
+                        </div>
+
+                        <!-- Category -->
+
+                        <div class="form-group">
+
+                            <label for="category">
+
+                                Category
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <select
+                                id="category"
+                                required>
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="Fishing Net">
+                                    Fishing Net
+                                </option>
+
+                                <option value="Fishing Rope">
+                                    Fishing Rope
+                                </option>
+
+                                <option value="Hooks">
+                                    Hooks
+                                </option>
+
+                                <option value="Floats">
+                                    Floats
+                                </option>
+
+                                <option value="Accessories">
+                                    Accessories
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Brand -->
+
+                        <div class="form-group">
+
+                            <label for="brand">
+                                Brand
+                            </label>
+
+                            <input
+                                type="text"
+                                id="brand"
+                                placeholder="Enter brand name">
+
+                        </div>
+
+                        <!-- Quantity -->
+
+                        <div class="form-group">
+
+                            <label for="quantity">
+
+                                Quantity
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <input
+                                type="number"
+                                id="quantity"
+                                min="0"
+                                step="0.01"
+                                placeholder="Enter quantity"
+                                required>
+
+                        </div>
+
+                        <!-- Unit -->
+
+                        <div class="form-group">
+
+                            <label for="unit">
+
+                                Unit
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <select
+                                id="unit"
+                                required>
+
+                                <option value="">
+                                    Select unit
+                                </option>
+
+                                <option value="kg">
+                                    Kilogram (kg)
+                                </option>
+
+                                <option value="gram">
+                                    Gram (g)
+                                </option>
+
+                                <option value="meter">
+                                    Meter (m)
+                                </option>
+
+                                <option value="roll">
+                                    Roll
+                                </option>
+
+                                <option value="piece">
+                                    Piece
+                                </option>
+
+                                <option value="pair">
+                                    Pair
+                                </option>
+
+                                <option value="packet">
+                                    Packet
+                                </option>
+
+                                <option value="box">
+                                    Box
+                                </option>
+
+                                <option value="bundle">
+                                    Bundle
+                                </option>
+
+                                <option value="dozen">
+                                    Dozen
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Price -->
+
+                        <div class="form-group">
+
+                            <label for="price">
+
+                                Price per Unit
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <input
+                                type="number"
+                                id="price"
+                                min="0"
+                                step="0.01"
+                                placeholder="Enter price per selected unit"
+                                required>
+
+                        </div>
+
+                        <!-- Supplier -->
+
+                        <div class="form-group">
+
+                            <label for="supplier">
+
+                                Supplier
+
+                                <span class="required-mark">*</span>
+
+                            </label>
+
+                            <select
+                                id="supplier"
+                                required>
+
+                                <option value="">
+                                    Select Supplier
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="add-product-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Product
+
+                    </button>
+
+                    <p id="productMessage"></p>
+
+                </form>
+
+            </section>
+
+            <!-- ===========================
+                 PRODUCT LIST
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="table-header">
+
+                    <h2>Product List</h2>
+
+                    <input
+                        type="text"
+                        id="productSearch"
+                        placeholder="Search products...">
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Product</th>
+
+                                <th>Category</th>
+
+                                <th>Brand</th>
+
+                                <th>Quantity</th>
+
+                                <th>Unit</th>
+
+                                <th>Price per Unit</th>
+
+                                <th>Supplier</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productTableBody">
+
+                            <!-- Products will appear here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- Footer -->
+
+            <footer>
+
+                <p>© 2026 Madha Marines Inventory System</p>
+
+                <p>Developed by Ahil Roy</p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- Product JavaScript -->
+
+    <script src="{{ url_for('static', filename='js/products.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/mobile-sidebar.js') }}"></script>
+
+</body>
+
+</html>

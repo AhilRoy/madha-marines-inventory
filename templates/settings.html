@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Settings - Madha Marines</title>
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+            <ul class="menu">
+
+                <!-- Dashboard -->
+
+                <li>
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <!-- Products -->
+
+                <li>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <!-- Stock In -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+                <!-- Stock Out -->
+
+                <li>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+                <!-- Suppliers -->
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+                <!-- Customers -->
+
+                <li>
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+                <!-- Inventory -->
+
+                <li>
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <!-- Reports -->
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+                <!-- Settings -->
+
+                <li class="active">
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <!-- Logout -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+            <!-- Mobile Menu -->
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+
+            <!-- ===========================
+                 HEADER
+            ============================ -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Settings</h1>
+
+                    <p>
+                        Manage shop information,
+                        inventory preferences and data
+                    </p>
+
+                </div>
+
+            </header>
+
+
+            <!-- ===========================
+                 SHOP INFORMATION
+            ============================ -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+
+                            <i class="fa-solid fa-store"></i>
+
+                            Shop Information
+
+                        </h2>
+
+                        <p>
+                            Update the basic details of
+                            Madha Marines
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="shopSettingsForm">
+
+                    <div class="form-grid">
+
+
+                        <!-- Shop Name -->
+
+                        <div class="form-group">
+
+                            <label for="settingsShopName">
+
+                                Shop Name
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="settingsShopName"
+                                placeholder="Enter shop name"
+                                required>
+
+                        </div>
+
+
+                        <!-- Owner Name -->
+
+                        <div class="form-group">
+
+                            <label for="settingsOwnerName">
+
+                                Owner Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="settingsOwnerName"
+                                placeholder="Enter owner name">
+
+                        </div>
+
+
+                        <!-- Phone -->
+
+                        <div class="form-group">
+
+                            <label for="settingsPhone">
+
+                                Phone Number
+
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="settingsPhone"
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                placeholder="Enter 10-digit phone number">
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div class="form-group">
+
+                            <label for="settingsEmail">
+
+                                Email Address
+
+                            </label>
+
+                            <input
+                                type="email"
+                                id="settingsEmail"
+                                placeholder="Enter shop email address">
+
+                        </div>
+
+
+                        <!-- GST -->
+
+                        <div class="form-group">
+
+                            <label for="settingsGstNumber">
+
+                                GST Number
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="settingsGstNumber"
+                                maxlength="15"
+                                placeholder="Enter GST number">
+
+                        </div>
+
+
+                        <!-- Address -->
+
+                        <div class="form-group">
+
+                            <label for="settingsAddress">
+
+                                Shop Address
+
+                            </label>
+
+                            <textarea
+                                id="settingsAddress"
+                                rows="4"
+                                placeholder="Enter complete shop address"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="settings-save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Save Shop Details
+
+                    </button>
+
+
+                    <p
+                        id="shopSettingsMessage"
+                        class="settings-message">
+                    </p>
+
+                </form>
+
+            </section>
+
+
+            <!-- ===========================
+                 INVENTORY PREFERENCES
+            ============================ -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+
+                            <i class="fa-solid fa-boxes-stacked"></i>
+
+                            Inventory Preferences
+
+                        </h2>
+
+                        <p>
+                            Configure stock limits,
+                            currency and invoice preferences
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="inventorySettingsForm">
+
+                    <div class="form-grid">
+
+
+                        <!-- Low Stock Limit -->
+
+                        <div class="form-group">
+
+                            <label for="lowStockLimit">
+
+                                Default Low-Stock Limit
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="number"
+                                id="lowStockLimit"
+                                min="0"
+                                step="0.01"
+                                value="5"
+                                required>
+
+                            <small>
+                                Products at or below this
+                                quantity will be marked as
+                                low stock when no individual
+                                product limit is available.
+                            </small>
+
+                        </div>
+
+
+                        <!-- Currency -->
+
+                        <div class="form-group">
+
+                            <label for="currencySymbol">
+
+                                Currency
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <select
+                                id="currencySymbol"
+                                required>
+
+                                <option value="₹">
+
+                                    Indian Rupee (₹)
+
+                                </option>
+
+                                <option value="$">
+
+                                    US Dollar ($)
+
+                                </option>
+
+                                <option value="€">
+
+                                    Euro (€)
+
+                                </option>
+
+                                <option value="£">
+
+                                    British Pound (£)
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Date Format -->
+
+                        <div class="form-group">
+
+                            <label for="dateFormat">
+
+                                Date Format
+
+                            </label>
+
+                            <select id="dateFormat">
+
+                                <option value="DD-MM-YYYY">
+
+                                    DD-MM-YYYY
+
+                                </option>
+
+                                <option value="MM-DD-YYYY">
+
+                                    MM-DD-YYYY
+
+                                </option>
+
+                                <option value="YYYY-MM-DD">
+
+                                    YYYY-MM-DD
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Invoice Prefix -->
+
+                        <div class="form-group">
+
+                            <label for="invoicePrefix">
+
+                                Invoice Prefix
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="invoicePrefix"
+                                maxlength="10"
+                                placeholder="Example: MM"
+                                value="MM">
+
+                            <small>
+                                Prefix used when generating
+                                new sale invoice numbers.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="settings-save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Save Inventory Settings
+
+                    </button>
+
+
+                    <p
+                        id="inventorySettingsMessage"
+                        class="settings-message">
+                    </p>
+
+                </form>
+
+            </section>
+
+
+            <!-- ===========================
+                 DATA BACKUP AND RESTORE
+            ============================ -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+
+                            <i class="fa-solid fa-database"></i>
+
+                            Data Backup and Restore
+
+                        </h2>
+
+                        <p>
+                            Download a backup of your
+                            business data or restore a
+                            previously saved backup
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-action-grid">
+
+
+                    <!-- Download Backup -->
+
+                    <div class="settings-action-card">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        <h3>
+                            Download Backup
+                        </h3>
+
+                        <p>
+                            Download products, suppliers,
+                            customers, stock records,
+                            invoices and settings as a
+                            JSON backup file.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="backup-btn"
+                            id="downloadBackupButton">
+
+                            <i class="fa-solid fa-file-arrow-down"></i>
+
+                            Download Backup
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Restore Backup -->
+
+                    <div class="settings-action-card">
+
+                        <i class="fa-solid fa-upload"></i>
+
+                        <h3>
+                            Restore Backup
+                        </h3>
+
+                        <p>
+                            Select a Madha Marines backup
+                            file and restore the saved
+                            records to the system.
+                        </p>
+
+                        <input
+                            type="file"
+                            id="restoreBackupFile"
+                            accept=".json,application/json"
+                            hidden>
+
+
+                        <button
+                            type="button"
+                            class="restore-btn"
+                            id="selectBackupButton">
+
+                            <i class="fa-solid fa-folder-open"></i>
+
+                            Select Backup File
+
+                        </button>
+
+
+                        <p id="selectedBackupFileName">
+
+                            No file selected
+
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="restore-confirm-btn"
+                            id="restoreBackupButton"
+                            disabled>
+
+                            <i class="fa-solid fa-file-import"></i>
+
+                            Restore Data
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <p
+                    id="backupMessage"
+                    class="settings-message">
+                </p>
+
+            </section>
+
+
+            <!-- ===========================
+                 DATA INFORMATION
+            ============================ -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Stored Data Summary
+
+                        </h2>
+
+                        <p>
+                            View the number of records
+                            currently stored in the system
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-data-summary">
+
+
+                    <!-- Products -->
+
+                    <div class="settings-summary-card">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <h3>Products</h3>
+
+                        <p id="settingsProductCount">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- Stock In -->
+
+                    <div class="settings-summary-card">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        <h3>Stock In Records</h3>
+
+                        <p id="settingsStockInCount">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- Stock Out -->
+
+                    <div class="settings-summary-card">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        <h3>Stock Out Records</h3>
+
+                        <p id="settingsStockOutCount">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- Suppliers -->
+
+                    <div class="settings-summary-card">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        <h3>Suppliers</h3>
+
+                        <p id="settingsSupplierCount">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- Customers -->
+
+                    <div class="settings-summary-card">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        <h3>Customers</h3>
+
+                        <p id="settingsCustomerCount">
+                            0
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===========================
+                 DANGER ZONE
+            ============================ -->
+
+            <section class="settings-section danger-zone">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            Danger Zone
+
+                        </h2>
+
+                        <p>
+                            These actions can permanently
+                            remove information from the
+                            database
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="danger-zone-content">
+
+                    <div>
+
+                        <h3>
+                            Reset All Application Data
+                        </h3>
+
+                        <p>
+                            This will permanently delete
+                            products, stock history,
+                            invoices, suppliers, customers
+                            and application settings.
+                            This action cannot be undone.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="reset-data-btn"
+                        id="resetAllDataButton">
+
+                        <i class="fa-solid fa-trash-can"></i>
+
+                        Reset All Data
+
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="resetMessage"
+                    class="settings-message">
+                </p>
+
+            </section>
+
+
+            <!-- ===========================
+                 FOOTER
+            ============================ -->
+
+            <footer>
+
+                <p>
+                    © 2026 Madha Marines Inventory System
+                </p>
+
+                <p>
+                    Developed by Ahil Roy
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- ===========================
+         JAVASCRIPT
+    ============================ -->
+
+    <script
+        src="{{ url_for('static', filename='js/settings.js') }}">
+    </script>
+
+    <script
+        src="{{ url_for('static', filename='js/mobile-sidebar.js') }}">
+    </script>
+
+</body>
+
+</html>

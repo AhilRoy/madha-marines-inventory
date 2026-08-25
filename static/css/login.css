@@ -1,0 +1,469 @@
+/* =========================================
+   MADHA MARINES LOGIN PAGE
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a 0%,
+            #0b4f6c 45%,
+            #118ab2 100%
+        );
+    padding: 20px;
+}
+
+
+/* =========================================
+   LOGIN CONTAINER
+   ========================================= */
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================
+   LOGIN CARD
+   ========================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 22px;
+    padding: 40px 35px;
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.28);
+
+    animation: loginFadeIn 0.6s ease;
+}
+
+@keyframes loginFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.login-card img {
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    padding: 6px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================
+   TITLE
+   ========================================= */
+
+.login-card h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #0f4c75;
+    margin-bottom: 5px;
+}
+
+
+/* =========================================
+   SUBTITLE
+   ========================================= */
+
+.login-card > p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+#loginForm {
+    width: 100%;
+}
+
+
+/* =========================================
+   INPUT BOX
+   ========================================= */
+
+.input-box {
+    width: 100%;
+    height: 52px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background: #f8fafc;
+
+    border: 1px solid #dbe3ea;
+
+    border-radius: 12px;
+
+    margin-bottom: 18px;
+
+    transition: all 0.25s ease;
+}
+
+
+/* INPUT FOCUS */
+
+.input-box:focus-within {
+    border-color: #118ab2;
+
+    box-shadow:
+        0 0 0 4px rgba(17, 138, 178, 0.12);
+
+    background: white;
+}
+
+
+/* =========================================
+   LEFT ICON
+   ========================================= */
+
+.input-box > i {
+    width: 50px;
+
+    color: #64748b;
+
+    font-size: 16px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   INPUT FIELD
+   ========================================= */
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    color: #0f172a;
+
+    padding-right: 15px;
+}
+
+
+.input-box input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   PASSWORD TOGGLE BUTTON
+   ========================================= */
+
+.toggle-password {
+    width: 50px;
+    height: 100%;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #64748b;
+
+    font-size: 16px;
+
+    transition: 0.2s ease;
+}
+
+
+.toggle-password:hover {
+    color: #118ab2;
+}
+
+
+.toggle-password:focus {
+    outline: none;
+}
+
+
+/* =========================================
+   REMEMBER ME
+   ========================================= */
+
+.remember-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 2px;
+    margin-bottom: 16px;
+}
+
+
+.remember-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 13px;
+
+    color: #475569;
+
+    cursor: pointer;
+}
+
+
+.remember-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+
+    accent-color: #118ab2;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   ERROR / STATUS MESSAGE
+   ========================================= */
+
+#errorMessage {
+    min-height: 22px;
+
+    margin-bottom: 10px;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    color: #dc2626;
+
+    text-align: left;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+#loginButton {
+    width: 100%;
+    min-height: 52px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f4c75,
+            #118ab2
+        );
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+/* LOGIN BUTTON HOVER */
+
+#loginButton:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(17, 138, 178, 0.32);
+}
+
+
+/* LOGIN BUTTON CLICK */
+
+#loginButton:active {
+    transform: translateY(0);
+}
+
+
+/* DISABLED BUTTON */
+
+#loginButton:disabled {
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   LOGIN CARD DECORATION
+   ========================================= */
+
+.login-card::before {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+    height: 5px;
+
+    border-radius: 10px;
+
+    margin:
+        -18px auto
+        30px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0f4c75,
+            #118ab2
+        );
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .login-card {
+        max-width: 100%;
+
+        padding: 32px 24px;
+
+        border-radius: 18px;
+    }
+
+    .login-card img {
+        width: 82px;
+        height: 82px;
+    }
+
+    .login-card h1 {
+        font-size: 24px;
+    }
+
+    .login-card > p {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .input-box {
+        height: 50px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL SCREENS
+   ========================================= */
+
+@media (max-width: 380px) {
+
+    .login-card {
+        padding:
+            28px
+            18px;
+    }
+
+    .login-card h1 {
+        font-size: 22px;
+    }
+
+    .input-box > i {
+        width: 42px;
+    }
+
+    .toggle-password {
+        width: 42px;
+    }
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+#loginButton:focus-visible,
+.toggle-password:focus-visible,
+.input-box input:focus-visible {
+    outline:
+        2px solid
+        #118ab2;
+
+    outline-offset: 2px;
+}

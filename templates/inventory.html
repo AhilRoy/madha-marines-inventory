@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory - Madha Marines Inventory System</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ===========================
+             SIDEBAR
+        ============================ -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Madha Marines Logo">
+
+                <h2>Madha Marines</h2>
+
+            </div>
+
+            <ul class="menu">
+
+                <li>
+
+                    <a href="{{ url_for('dashboard_page') }}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('products_page') }}">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('stock_in_page') }}">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                        Stock In
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('stock_out_page') }}">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                        Stock Out
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('suppliers_page') }}">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                        Suppliers
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('customers_page') }}">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Customers
+
+                    </a>
+
+                </li>
+
+                <li class="active">
+
+                    <a href="{{ url_for('inventory_page') }}">
+
+                        <i class="fa-solid fa-warehouse"></i>
+
+                        Inventory
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('reports_page') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Reports
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('settings_page') }}">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ===========================
+             MAIN CONTENT
+        ============================ -->
+
+        <main class="main">
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div
+                class="sidebar-overlay"
+                id="sidebarOverlay">
+            </div>
+
+            <!-- ===========================
+                 HEADER
+            ============================ -->
+
+            <div class="header">
+
+                <div class="header-left">
+
+                    <h1>Inventory</h1>
+
+                    <p>
+                        View and manage the complete stock overview
+                    </p>
+
+                    <span id="date"></span>
+
+                </div>
+
+                <div class="header-right">
+
+                    <div class="profile">
+
+                        <i class="fa-solid fa-user-circle fa-2x"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ===========================
+                 SUMMARY CARDS
+            ============================ -->
+
+            <div class="inventory-summary">
+
+                <div class="inventory-summary-card">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    <h3>Total Products</h3>
+
+                    <h2 id="inventoryTotalProducts">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="inventory-summary-card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h3>Available Products</h3>
+
+                    <h2 id="inventoryAvailableProducts">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="inventory-summary-card">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <h3>Low Stock Products</h3>
+
+                    <h2 id="inventoryLowStockProducts">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="inventory-summary-card">
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                    <h3>Out of Stock</h3>
+
+                    <h2 id="inventoryOutOfStock">
+                        0
+                    </h2>
+
+                </div>
+
+                <div class="inventory-summary-card">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                    <h3>Total Stock Value</h3>
+
+                    <h2 id="inventoryTotalValue">
+                        ₹0.00
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <!-- ===========================
+                 FILTER SECTION
+            ============================ -->
+
+            <section class="inventory-filter-section">
+
+                <h2>Filter Inventory</h2>
+
+                <div class="inventory-filter-grid">
+
+                    <div class="inventory-filter-group">
+
+                        <label for="inventorySearch">
+                            Search Product
+                        </label>
+
+                        <input
+                            type="text"
+                            id="inventorySearch"
+                            placeholder="Search by name, category, supplier or unit">
+
+                    </div>
+
+                    <div class="inventory-filter-group">
+
+                        <label for="inventoryCategoryFilter">
+                            Category
+                        </label>
+
+                        <select id="inventoryCategoryFilter">
+
+                            <option value="">
+                                All Categories
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="inventory-filter-group">
+
+                        <label for="inventoryStatusFilter">
+                            Stock Status
+                        </label>
+
+                        <select id="inventoryStatusFilter">
+
+                            <option value="">
+                                All Status
+                            </option>
+
+                            <option value="available">
+                                Available
+                            </option>
+
+                            <option value="low">
+                                Low Stock
+                            </option>
+
+                            <option value="out">
+                                Out of Stock
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="inventory-reset-btn"
+                        id="inventoryResetFilter">
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- ===========================
+                 INVENTORY TABLE
+            ============================ -->
+
+            <section class="table-section">
+
+                <div class="inventory-table-header">
+
+                    <h2>Inventory Overview</h2>
+
+                    <p
+                        class="inventory-count-text"
+                        id="inventoryResultCount">
+
+                        Showing 0 products
+
+                    </p>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Product</th>
+
+                                <th>Category</th>
+
+                                <th>Quantity</th>
+
+                                <th>Unit</th>
+
+                                <th>Price Per Unit</th>
+
+                                <th>Stock Value</th>
+
+                                <th>Supplier</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="inventoryTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="9"
+                                    class="empty-table-message">
+
+                                    Loading inventory...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- ===========================
+                 FOOTER
+            ============================ -->
+
+            <footer>
+
+                <p>
+                    © 2026 Madha Marines Inventory System
+                </p>
+
+                <p>
+                    Developed by Ahil Roy
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- ===========================
+         JAVASCRIPT
+    ============================ -->
+
+    <script
+        src="{{ url_for('static', filename='js/inventory.js') }}">
+    </script>
+
+    <script
+        src="{{ url_for('static', filename='js/mobile-sidebar.js') }}">
+    </script>
+
+</body>
+
+</html>

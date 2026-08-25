@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Invoice - Madha Marines</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body
+    class="invoice-page"
+    data-invoice-number="{{ invoice_number }}">
+
+    <div class="invoice-container">
+
+        <div class="invoice-actions">
+
+            <button
+                type="button"
+                class="invoice-back-btn"
+                onclick="window.close()">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back
+
+            </button>
+
+            <button
+                type="button"
+                class="invoice-download-btn"
+                id="downloadInvoiceButton">
+
+                <i class="fa-solid fa-download"></i>
+
+                Download PDF
+
+            </button>
+
+            <button
+                type="button"
+                class="invoice-print-btn"
+                id="printInvoiceButton">
+
+                <i class="fa-solid fa-print"></i>
+
+                Print Invoice
+
+            </button>
+
+        </div>
+
+        <div
+            class="invoice-sheet"
+            id="invoiceSheet">
+
+            <header class="invoice-header">
+
+                <div class="invoice-brand">
+
+                    <img
+                        src="{{ url_for('static', filename='images/logo.png') }}"
+                        alt="Madha Marines Logo"
+                        class="invoice-logo">
+
+                    <div>
+
+                        <h1>Madha Marines</h1>
+
+                        <p>Fish Nets & Accessories</p>
+
+                        <p>Near Baywatch, Kovalam, Kanyakumari</p>
+
+                        <p>Phone: +91 xxxxxxxxxx</p>
+
+                        <p>GSTIN: 33XXXXXXXXXX</p>
+
+                    </div>
+
+                </div>
+
+                <div class="invoice-title">
+
+                    <h2>INVOICE</h2>
+
+                    <p>
+
+                        <strong>Invoice No:</strong>
+
+                        <span id="invoiceNumber">-</span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Date:</strong>
+
+                        <span id="invoiceDate">-</span>
+
+                    </p>
+
+                </div>
+
+            </header>
+
+            <section class="invoice-customer-section">
+
+                <div class="invoice-customer-card">
+
+                    <h3>Bill To</h3>
+
+                    <p>
+
+                        <strong>Customer:</strong>
+
+                        <span id="invoiceCustomerName">
+                            Walk-in Customer
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Phone:</strong>
+
+                        <span id="invoiceCustomerPhone">
+                            -
+                        </span>
+
+                    </p>
+
+                </div>
+
+                <div class="invoice-sale-card">
+
+                    <h3>Sale Details</h3>
+
+                    <p>
+
+                        <strong>Payment:</strong>
+
+                        <span id="invoicePaymentMethod">
+                            -
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Status:</strong>
+
+                        <span
+                            id="invoicePaymentStatus"
+                            class="invoice-status">
+
+                            Paid
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section class="invoice-table-section">
+
+                <table class="invoice-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Product</th>
+
+                            <th>Quantity</th>
+
+                            <th>Unit</th>
+
+                            <th>Price</th>
+
+                            <th>Total</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="invoiceItemsBody">
+
+                        <tr>
+
+                            <td colspan="5">
+
+                                Loading invoice...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <section class="invoice-summary-section">
+
+                <div class="invoice-notes">
+
+                    <h3>Notes</h3>
+
+                    <p id="invoiceNotes">
+
+                        Thank you for your purchase.
+
+                    </p>
+
+                </div>
+
+                <div class="invoice-total-box">
+
+                    <div>
+
+                        <span>Subtotal</span>
+
+                        <strong id="invoiceSubtotal">
+
+                            ₹0.00
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Discount</span>
+
+                        <strong id="invoiceDiscountAmount">
+
+                            ₹0.00
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Tax</span>
+
+                        <strong id="invoiceTaxAmount">
+
+                            ₹0.00
+
+                        </strong>
+
+                    </div>
+
+                    <div class="invoice-grand-total">
+
+                        <span>Grand Total</span>
+
+                        <strong id="invoiceGrandTotal">
+
+                            ₹0.00
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="invoice-signatures">
+
+                <div>
+
+                    ______________________
+
+                    <p>Customer Signature</p>
+
+                </div>
+
+                <div>
+
+                    ______________________
+
+                    <p>Authorized Signature</p>
+
+                </div>
+
+            </div>
+
+            <footer class="invoice-footer">
+
+                <p>
+
+                    Thank you for choosing Madha Marines.
+
+                </p>
+
+                <p>
+
+                    Quality Fish Nets and Accessories
+
+                </p>
+
+            </footer>
+
+        </div>
+
+        <p
+            id="invoiceErrorMessage"
+            style="display:none;color:red;text-align:center;margin-top:20px;">
+
+        </p>
+
+    </div>
+
+    <script
+        src="{{ url_for('static', filename='js/invoice.js') }}">
+    </script>
+
+</body>
+
+</html>
